@@ -1,0 +1,1 @@
+![Project Stardust](/_doc/img/projectStardust.png)
