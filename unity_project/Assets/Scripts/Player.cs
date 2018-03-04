@@ -1,77 +1,105 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-[RequireComponent(typeof(Controller))]
-public class Player : MonoBehaviour 
-{
-	// how high the character jumps
-	// jumpHeight = (gravity * timeToJumpApex²) / 2
-	public float jumpHeight = 4;
+[RequireComponent (typeof (Controller2D))]
+public class Player : MonoBehaviour {
 
-	// how long need the character to reach the highest point
+	public float maxJumpHeight = 4;
+	public float minJumpHeight = 1;
 	public float timeToJumpApex = .4f;
-
 	float accelerationTimeAirborne = .2f;
 	float accelerationTimeGrounded = .1f;
-
-	// move velocity
-	// velocityInitial + gravity * time
 	float moveSpeed = 6;
 
-	// jump velocity
-	float jumpVelocity;
+	public Vector2 wallJumpClimb;
+	public Vector2 wallJumpOff;
+	public Vector2 wallLeap;
 
-	// gravity factor
+	public float wallSlideSpeedMax = 3;
+	public float wallStickTime = .25f;
+	float timeToWallUnstick;
+
 	float gravity;
-
+	float maxJumpVelocity;
+	float minJumpVelocity;
 	Vector3 velocity;
-
-	// the smooth operation will set this value
 	float velocityXSmoothing;
 
-	// controller for player object
-	Controller controller;
+	Controller2D controller;
 
-	// this method is called by Unity on start
-	void Start () 
-	{
-		controller = GetComponent<Controller> ();
+	void Start() {
+		controller = GetComponent<Controller2D> ();
 
-		// gravity = (2*jumpHeight) / timeToJumpApex² | negative to fall down!
-		gravity = -(2 * jumpHeight) / Mathf.Pow (timeToJumpApex, 2);
-
-		// jumpVelocity = gravity * timeToJumpApex
-		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-		print ("Gravity: " + gravity + " Jump Velocity: " + jumpVelocity);
+		gravity = -(2 * maxJumpHeight) / Mathf.Pow (timeToJumpApex, 2);
+		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+		minJumpVelocity = Mathf.Sqrt (2 * Mathf.Abs (gravity) * minJumpHeight);
+		print ("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
 	}
+
+	void Update() {
+		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+		int wallDirX = (controller.collisions.left) ? -1 : 1;
+
+		float targetVelocityX = input.x * moveSpeed;
+		velocity.x = Mathf.SmoothDamp (velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
+
+		bool wallSliding = false;
+		if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0) {
+			wallSliding = true;
+
+			if (velocity.y < -wallSlideSpeedMax) {
+				velocity.y = -wallSlideSpeedMax;
+			}
+
+			if (timeToWallUnstick > 0) {
+				velocityXSmoothing = 0;
+				velocity.x = 0;
+
+				if (input.x != wallDirX && input.x != 0) {
+					timeToWallUnstick -= Time.deltaTime;
+				}
+				else {
+					timeToWallUnstick = wallStickTime;
+				}
+			}
+			else {
+				timeToWallUnstick = wallStickTime;
+			}
+
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			if (wallSliding) {
+				if (wallDirX == input.x) {
+					velocity.x = -wallDirX * wallJumpClimb.x;
+					velocity.y = wallJumpClimb.y;
+				}
+				else if (input.x == 0) {
+					velocity.x = -wallDirX * wallJumpOff.x;
+					velocity.y = wallJumpOff.y;
+				}
+				else {
+					velocity.x = -wallDirX * wallLeap.x;
+					velocity.y = wallLeap.y;
+				}
+			}
+			if (controller.collisions.below) {
+				velocity.y = maxJumpVelocity;
+			}
+		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			if (velocity.y > minJumpVelocity) {
+				velocity.y = minJumpVelocity;
+			}
+		}
+
 	
-	// update is called once per frame
-	void Update () 
-	{
-		// stop on collision
-		if(controller.collisions.above || controller.collisions.below)
-		{
+		velocity.y += gravity * Time.deltaTime;
+		controller.Move (velocity * Time.deltaTime, input);
+
+		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
 		}
 
-		// input
-		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-
-		// button for jumping
-		if (Input.GetKeyDown (KeyCode.UpArrow) && controller.collisions.below) 
-		{
-			velocity.y = jumpVelocity;
-		}
-
-		// speed in x direction
-		float targetVelocityX = input.x * moveSpeed;
-		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeGrounded);
-
-		// falling speed
-		velocity.y += gravity * Time.deltaTime;
-
-		// move
-		controller.Move(velocity * Time.deltaTime);
 	}
 }
