@@ -1,8 +1,12 @@
 sceneSetups:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - path: Assets/Scenes/main_menue.unity
 =======
 - path: Assets/SkythianCat/Hand_Painted_Nature_Kit_LITE/DEMO/Demo_scene.unity
+>>>>>>> origin/master
+=======
+- path: Assets/Scenes/scene_1.unity
 >>>>>>> origin/master
   isLoaded: 1
   isActive: 1
