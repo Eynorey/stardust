@@ -193,9 +193,9 @@ ModelImporter:
       name: WalkFWD
       takeName: _1_Edit1_WalkFWD
       firstFrame: 0
-      lastFrame: 90
+      lastFrame: 27
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: 1.48
       level: 0
       cycleOffset: 0
       loop: 0
