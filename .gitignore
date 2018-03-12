@@ -1,10 +1,10 @@
 ### Unity ###
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/Assets/AssetStoreTools*
+unity_project/Library
+unity_project/Temp
+unity_project/Obj
+unity_project/Build
+unity_project/Builds
+unity_project/Assets/AssetStoreTools*
 
 # Visual Studio 2015 cache directory
 /.vs/
