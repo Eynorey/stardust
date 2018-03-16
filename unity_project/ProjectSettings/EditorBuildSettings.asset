@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/UI/Scenes/Controls.unity
     guid: e31151469f9db41bb99384b804f43c3d
-  - enabled: 0
-    path: Assets/LevelDesignSet1_WoodenWalls/Example/Example.unity
-    guid: 6b8ecca2009175e43af5437954e7d37b
   - enabled: 1
     path: Assets/Scenes/scene_1.unity
     guid: db952556c79f9e345b5a9e41c0f36625
