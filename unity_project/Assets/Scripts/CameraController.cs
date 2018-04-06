@@ -1,19 +1,28 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-	private Transform PlayerToFollow;
-	private float offset;
+public class CameraController : MonoBehaviour
+{
+    private Transform PlayerToFollow;
 
-	void Start(){
-		PlayerToFollow = GameObject.FindGameObjectWithTag ("Player").transform;
-		offset = transform.position.y - PlayerToFollow.transform.position.y;
-	}
+    void Start()
+    {
+        PlayerToFollow = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
-	void LateUpdate(){
+    float dampFactor = 0.2f;
 
-		transform.position = new Vector3(PlayerToFollow.position.x, PlayerToFollow.position.y + offset , transform.position.z);
+    void LateUpdate()
+    {
+        float playerX = PlayerToFollow.position.x;
+        float playerY = PlayerToFollow.position.y;
 
-	}
+        var velocity = Vector3.zero;
+
+        float newY = playerY + 7;
+
+        var newPos = new Vector3(playerX, newY, transform.position.z);
+        transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, dampFactor);
+    }
 }
