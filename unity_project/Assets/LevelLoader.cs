@@ -2,29 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class LoadSceneOnClick : MonoBehaviour {
-
-    public GameObject loadingBar;
-    public Slider slider;
+public class LevelLoader : MonoBehaviour {
 
     public void LoadLevel(int sceneIndex)
     {
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
-    IEnumerator LoadAsynchronously(int sceneIndex)
-    {
+    IEnumerator LoadAsynchronously(int sceneIndex) {
         var operation = SceneManager.LoadSceneAsync(sceneIndex);
-
-        loadingBar.SetActive(true);
-
         while (!operation.isDone)
         {
             var progress = Mathf.Clamp01(operation.progress / .9f);
+            Debug.Log(progress);
 
-            slider.value = progress;
             yield return null;
         }
     }
