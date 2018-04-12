@@ -27,6 +27,7 @@ public class Interaction : MonoBehaviour
 		{
 			if(hit.transform.tag == "Log")
 			{
+				print("collision " + hit.transform.gameObject.name);
 				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 				{
 					GameObject obj = hit.transform.gameObject;
