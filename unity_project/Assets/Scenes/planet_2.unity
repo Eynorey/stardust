@@ -3798,6 +3798,16 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 7.6477685
       objectReference: {fileID: 0}
+    - target: {fileID: 23000010931659576, guid: 94cbe56fc9684464494c9e07134e7731,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c23ebe468219743a6de26c72f82408, type: 2}
+    - target: {fileID: 23000010438759290, guid: 94cbe56fc9684464494c9e07134e7731,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e64b0e3b552b1594c9da0349672d52fd, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94cbe56fc9684464494c9e07134e7731, type: 2}
   m_IsPrefabParent: 0
@@ -4121,13 +4131,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 165093212}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 317, y: 84.7, z: 126.59}
   m_LocalScale: {x: 663.1039, y: 114.82092, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &165273046
 Prefab:
   m_ObjectHideFlags: 0
@@ -14131,6 +14141,22 @@ Prefab:
     - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0.0000
       objectReference: {fileID: 0}
     - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
       propertyPath: startDelay.minScalar
