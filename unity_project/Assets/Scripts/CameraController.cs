@@ -1,15 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-	private Transform PlayerToFollow;
+public class CameraController : MonoBehaviour
+{
+    private Transform PlayerToFollow;
 
-	void Start(){
-		PlayerToFollow = GameObject.FindGameObjectWithTag ("Player").transform;
-	}
+    void Start()
+    {
+        PlayerToFollow = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
-    float dampFactor = 0.1f;
+    float dampFactor = 0.2f;
 
     void LateUpdate()
     {
