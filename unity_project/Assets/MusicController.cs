@@ -10,6 +10,7 @@ public class MusicController : MonoBehaviour {
     GameObject MusicWall1;
     GameObject BackgroundMusic;
     new AudioSource audio;
+    List<AudioClip> Clips;
 
     int part = 0;
 
@@ -19,14 +20,23 @@ public class MusicController : MonoBehaviour {
         MusicWall1 = GameObject.Find("MusicWall1");
         BackgroundMusic = GameObject.Find("BackgroundMusic");
         audio = BackgroundMusic.GetComponent<AudioSource>();
+        LoadClips();
         PlayAudio();
 	}
 
+    private void LoadClips()
+    {
+        Clips = new List<AudioClip>();
+        for (int i = 0; i <= 5; i++)
+        {
+            string path = string.Format("Assets/_music/first_planet/{0}.ogg", i);
+            Clips.Add(AssetDatabase.LoadAssetAtPath<AudioClip>(path));
+        }
+    }
+
     private void PlayAudio()
     {
-        string path = string.Format("Assets/_music/first_planet/{0}.ogg", part);
-        var clip = AssetDatabase.LoadAssetAtPath<AudioClip>(path);
-        audio.PlayOneShot(clip);
+        audio.PlayOneShot(Clips[part]);
     }
 
     // Update is called once per frame
@@ -52,7 +62,7 @@ public class MusicController : MonoBehaviour {
             if (part == 1)
                 part++;
             else
-                part--;           
+                part--;
         }
         PlayAudio();
     }
