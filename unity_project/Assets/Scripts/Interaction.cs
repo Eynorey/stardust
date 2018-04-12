@@ -42,6 +42,15 @@ public class Interaction : MonoBehaviour
 					HandleNPC(obj);
 				}
 			}
+
+			if(hit.transform.tag == "Shippart")
+			{
+				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+				{
+					GameObject obj = hit.transform.gameObject;
+					HandleNPC(obj);
+				}
+			}
 		}
 	}
 
