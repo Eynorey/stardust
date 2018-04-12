@@ -10,7 +10,8 @@ public class DialogManager : MonoBehaviour {
     public GameObject dialogWindow;
     public GameObject startButton;
     public GameObject continueButton;
-
+    public GameObject endButton;
+    public GameObject skipButton;
     private Queue<string> sentences;
 
 	// Use this for initialization
@@ -27,12 +28,18 @@ public class DialogManager : MonoBehaviour {
         {
             sentences.Enqueue(sentence);
         }
-
+      
         DisplayNextSentence();
     }
 
     public void DisplayNextSentence()
     {
+        if(sentences.Count == 1)
+        {
+            skipButton.SetActive(false);
+            continueButton.SetActive(false);
+            endButton.SetActive(true);
+        }
         if(sentences.Count == 0)
         {
             EndDialog();
