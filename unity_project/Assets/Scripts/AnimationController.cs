@@ -14,6 +14,10 @@ public class AnimationController : MonoBehaviour {
     private bool isWalking = false;
     //private bool isJumping = false;
 
+    private GameObject camswitchWall;
+    private Camera mainCam;
+    private Camera firstPersonCam;
+
     private Animator animator;
 
     private CharacterController cc;
@@ -25,9 +29,27 @@ public class AnimationController : MonoBehaviour {
         animator = GetComponent<Animator>();
         moveSpeed = 10;
         rotationSpeed = 10;
+        camswitchWall = GameObject.Find("camswitchWall");
+        mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        firstPersonCam = GameObject.Find("firstPersonCam").GetComponent<Camera>();
+    }
+
+    void Update()
+    {
+        if(transform.position.z > camswitchWall.transform.position.z)
+        {
+            firstPersonCam.gameObject.SetActive(true);
+            mainCam.gameObject.SetActive(false);
+        }
+        else
+        {
+            mainCam.gameObject.SetActive(true);
+            firstPersonCam.gameObject.SetActive(false);
+        }
     }
 
     void LateUpdate() {
+        /* */
         float moveHorizontal = Input.GetAxisRaw ("Horizontal");
         float moveVertical = Input.GetAxisRaw ("Vertical");
         isWalking = false;
