@@ -61,7 +61,7 @@ public class AnimationController : MonoBehaviour {
             isWalking = true;
             transform.rotation = Quaternion.LookRotation(movement);
         }
-        if((Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Button_0")) && cc.isGrounded)
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonUp("Button_0")) && cc.isGrounded)
         {
             transform.position += (jump * jumpForce);
         }

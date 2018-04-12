@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 
         var velocity = Vector3.zero;
 
-        float newY = playerY + 7;
+        float newY = (playerY + 30 > 120 ? playerY + 30 : 120);
 
         var newPos = new Vector3(playerX, newY, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, dampFactor);
