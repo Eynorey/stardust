@@ -8,13 +8,10 @@ public class Interaction : MonoBehaviour
 	GameObject player;
 	Camera thirdPersonCam;
 
-	Text interactionDialog;
-
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
-		interactionDialog = GameObject.Find("Dialoges/InteractionDialog").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -35,7 +32,6 @@ public class Interaction : MonoBehaviour
 		{
 			if(hit.transform.tag == "Log")
 			{
-				interactionDialog.text = "Log aufnehmen";
 				print("hit: " + hit.transform.gameObject.name);
 				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 				{
@@ -46,7 +42,6 @@ public class Interaction : MonoBehaviour
 
 			if(hit.transform.tag == "NPC")
 			{
-				interactionDialog.text = "Reden";
 				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 				{
 					GameObject obj = hit.transform.gameObject;
@@ -56,7 +51,6 @@ public class Interaction : MonoBehaviour
 
 			if(hit.transform.tag == "Shippart")
 			{
-				interactionDialog.text = "Schiffteil aufnehmen";
 				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 				{
 					GameObject obj = hit.transform.gameObject;

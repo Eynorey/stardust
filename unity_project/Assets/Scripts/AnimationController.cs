@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class AnimationController : MonoBehaviour {
 	// How fast your object moves
-    private float moveSpeed;
+    //private float moveSpeed;
 	// How fast your object will rotate in the direction of movement
     private float rotationSpeed;
     // jump vector
@@ -21,22 +22,30 @@ public class AnimationController : MonoBehaviour {
     private Animator animator;
 
     private CharacterController cc;
+    private string scene;
 
     // Use this for initialization
     void Start () 
     {
+        scene = SceneManager.GetActiveScene().name;
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        moveSpeed = 10;
+        //moveSpeed = 10;
         rotationSpeed = 10;
         camswitchWall = GameObject.Find("camswitchWall");
         mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+        if (scene != "scene_1")
+            return;
+
         thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
     }
 
     void Update()
     {
-        if(transform.position.z > camswitchWall.transform.position.z)
+        if (scene != "scene_1")
+            return;
+        if (transform.position.z > camswitchWall.transform.position.z)
         {
             thirdPersonCam.gameObject.SetActive(true);
             mainCam.gameObject.SetActive(false);

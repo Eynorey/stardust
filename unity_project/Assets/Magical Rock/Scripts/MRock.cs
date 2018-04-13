@@ -11,7 +11,7 @@ namespace OldTreeStudio
 		[SerializeField] private Animator				_animator;
 		[SerializeField] private string                 _animatorParameterGreen;
 		[SerializeField] private GameObject             _diamond;
-		[SerializeField] private AudioSource            _audioSource;
+		//[SerializeField] private AudioSource            _audioSource;
 
 		[Header("Renderers")]
 		[SerializeField] private SkinnedMeshRenderer	_LOD0Renderer;
@@ -35,7 +35,7 @@ namespace OldTreeStudio
 
 		public void PlaySFX ()
 		{
-			_audioSource.Play ();
+			//_audioSource.Play ();
 		}
 
 		#endregion
