@@ -16,7 +16,7 @@ public class AnimationController : MonoBehaviour {
 
     private GameObject camswitchWall;
     private Camera mainCam;
-    private Camera firstPersonCam;
+    private Camera thirdPersonCam;
 
     private Animator animator;
 
@@ -31,20 +31,20 @@ public class AnimationController : MonoBehaviour {
         rotationSpeed = 10;
         camswitchWall = GameObject.Find("camswitchWall");
         mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        firstPersonCam = GameObject.Find("firstPersonCam").GetComponent<Camera>();
+        thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
     }
 
     void Update()
     {
         if(transform.position.z > camswitchWall.transform.position.z)
         {
-            firstPersonCam.gameObject.SetActive(true);
+            thirdPersonCam.gameObject.SetActive(true);
             mainCam.gameObject.SetActive(false);
         }
         else
         {
             mainCam.gameObject.SetActive(true);
-            firstPersonCam.gameObject.SetActive(false);
+            thirdPersonCam.gameObject.SetActive(false);
         }
     }
 
