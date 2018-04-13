@@ -5,7 +5,8 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
-public class MusicController : MonoBehaviour {
+public class MusicController : MonoBehaviour
+{
     GameObject PlayerToFollow;
     GameObject MusicWall1;
     GameObject BackgroundMusic;
@@ -14,23 +15,28 @@ public class MusicController : MonoBehaviour {
 
     int part = 0;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         PlayerToFollow = GameObject.FindGameObjectWithTag("Player");
         MusicWall1 = GameObject.Find("MusicWall1");
         BackgroundMusic = GameObject.Find("BackgroundMusic");
         audio = BackgroundMusic.GetComponent<AudioSource>();
         LoadClips();
         PlayAudio();
-	}
+    }
 
     private void LoadClips()
     {
+        var musicfiles = Resources.LoadAll("");
         Clips = new List<AudioClip>();
-        for (int i = 0; i <= 5; i++)
+        foreach (var musicFile in musicfiles)
         {
-            string path = string.Format("Assets/_music/first_planet/{0}.ogg", i);
-            Clips.Add(AssetDatabase.LoadAssetAtPath<AudioClip>(path));
+            if (musicFile.GetType().Equals(typeof(AudioClip)))
+            {
+                Clips.Add((AudioClip)musicFile);
+            }
+
         }
     }
 
@@ -40,7 +46,8 @@ public class MusicController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (audio.isPlaying)
             return;
 
