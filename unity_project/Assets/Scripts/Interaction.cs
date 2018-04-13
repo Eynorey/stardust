@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour 
 {
 	GameObject player;
+	Camera thirdPersonCam;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
+		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -18,8 +21,10 @@ public class Interaction : MonoBehaviour
 
 	void CheckInteraction()
 	{
-		Vector3 origin = transform.position;
-		Vector3 direction = transform.forward;
+		//Vector3 origin = transform.position;
+		//Vector3 direction = transform.forward;
+		Vector3 origin = thirdPersonCam.transform.position;
+		Vector3 direction = thirdPersonCam.transform.forward;
 		float distance = 1f;
 		RaycastHit hit;
 
@@ -27,6 +32,7 @@ public class Interaction : MonoBehaviour
 		{
 			if(hit.transform.tag == "Log")
 			{
+				print("hit: " + hit.transform.gameObject.name);
 				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 				{
 					GameObject obj = hit.transform.gameObject;
