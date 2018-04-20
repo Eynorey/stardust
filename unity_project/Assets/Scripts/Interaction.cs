@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour 
 {
+	private static List<GameObject> Logs = new List<GameObject>();
+	private static List<GameObject> Shipparts = new List<GameObject>();
+
 	GameObject player;
 	Camera thirdPersonCam;
 
@@ -58,19 +61,23 @@ public class Interaction : MonoBehaviour
 	// safe it into file
 	void HandleLog(GameObject interactedObj)
 	{
-		Debug.Log("interacted with Log");
+		Logs.Add(interactedObj);
+		// open dialog
+		interactedObj.SetActive(false);
 	}
 
 	// on interacting with a NPC
 	// talk
 	void HandleNPC(GameObject interactedObj)
 	{
-		Debug.Log("interacted with NPC");
+		// trigger dialog with npc
 	}
 
 	// collect ship part
 	void HandleShippart(GameObject interactedObj)
 	{
-		Debug.Log("interacted with ship part");
+		Shipparts.Add(interactedObj);
+		// collect
+		interactedObj.SetActive(false);
 	}
 }
