@@ -13,49 +13,42 @@ public class Interaction : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		CheckInteraction();
+
+	/// <summary>
+	/// OnTriggerStay is called once per frame for every Collider other
+	/// that is touching the trigger.
+	/// </summary>
+	/// <param name="other">The other Collider involved in this collision.</param>
+	void OnTriggerStay(Collider other)
+	{
+		CheckInteraction(other);
 	}
 
-	void CheckInteraction()
+	void CheckInteraction(Collider hit)
 	{
-		//Vector3 origin = transform.position;
-		//Vector3 direction = transform.forward;
-		Vector3 origin = thirdPersonCam.transform.position;
-		Vector3 direction = thirdPersonCam.transform.forward;
-		float distance = 1f;
-		RaycastHit hit;
-
-		if(Physics.Raycast(origin, direction, out hit, distance))
+		GameObject obj = hit.transform.gameObject;
+		if(obj.tag == "Log")
 		{
-			if(hit.transform.tag == "Log")
+			print("hit: " + hit.transform.gameObject.name);
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
-				print("hit: " + hit.transform.gameObject.name);
-				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
-				{
-					GameObject obj = hit.transform.gameObject;
-					HandleLog(obj);
-				}
+				HandleLog(obj);
 			}
+		}
 
-			if(hit.transform.tag == "NPC")
+		if(obj.tag == "NPC")
+		{
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
-				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
-				{
-					GameObject obj = hit.transform.gameObject;
-					HandleNPC(obj);
-				}
+				HandleNPC(obj);
 			}
+		}
 
-			if(hit.transform.tag == "Shippart")
+		if(obj.tag == "Shippart")
+		{
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
-				if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
-				{
-					GameObject obj = hit.transform.gameObject;
-					HandleNPC(obj);
-				}
+				HandleNPC(obj);
 			}
 		}
 	}
@@ -65,13 +58,19 @@ public class Interaction : MonoBehaviour
 	// safe it into file
 	void HandleLog(GameObject interactedObj)
 	{
-
+		Debug.Log("interacted with Log");
 	}
 
 	// on interacting with a NPC
 	// talk
 	void HandleNPC(GameObject interactedObj)
 	{
+		Debug.Log("interacted with NPC");
+	}
 
+	// collect ship part
+	void HandleShippart(GameObject interactedObj)
+	{
+		Debug.Log("interacted with ship part");
 	}
 }
