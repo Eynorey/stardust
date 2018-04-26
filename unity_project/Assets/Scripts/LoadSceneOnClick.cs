@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class LoadSceneOnClick : MonoBehaviour {
 
@@ -17,8 +18,15 @@ public class LoadSceneOnClick : MonoBehaviour {
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
         var operation = SceneManager.LoadSceneAsync(sceneIndex);
-
+        GameObject.Find("MainMenuePanel").SetActive(false);
         loadingBar.SetActive(true);
+
+        GameObject music = GameObject.Find("Music");
+        music.GetComponent<AudioSource>().Stop();
+        GameObject video = GameObject.Find("LoadBar");
+        video.GetComponent<VideoPlayer>().Play();
+
+
 
         while (!operation.isDone)
         {
