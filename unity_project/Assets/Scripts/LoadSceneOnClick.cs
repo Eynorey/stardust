@@ -17,12 +17,14 @@ public class LoadSceneOnClick : MonoBehaviour {
     {
         slider.value = 0;
         loadingBar.SetActive(true);
-        if (sceneIndex == 1)
+        if (sceneIndex != 1)
         {
             playIntro = true;
             video = loadingBar.GetComponent<VideoPlayer>();
             init = true;
         }
+        else
+            loadingBar.GetComponent<Image>().enabled = true;
 
         sceneLoading = SceneManager.LoadSceneAsync(sceneIndex);
         sceneLoading.allowSceneActivation = false;
@@ -51,5 +53,6 @@ public class LoadSceneOnClick : MonoBehaviour {
         }
 
         sceneLoading.allowSceneActivation = true;
+        loadingBar.GetComponent<Image>().enabled = true;
     }
 }
