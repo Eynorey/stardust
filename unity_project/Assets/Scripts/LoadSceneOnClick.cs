@@ -18,22 +18,25 @@ public class LoadSceneOnClick : MonoBehaviour {
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
         var operation = SceneManager.LoadSceneAsync(sceneIndex);
+        operation.allowSceneActivation = false;
+
         GameObject.Find("MainMenuePanel").SetActive(false);
         loadingBar.SetActive(true);
-
-        GameObject music = GameObject.Find("Music");
-        music.GetComponent<AudioSource>().Stop();
-        GameObject video = GameObject.Find("LoadBar");
-        video.GetComponent<VideoPlayer>().Play();
-
-
-
-        while (!operation.isDone)
+        VideoPlayer video = loadingBar.GetComponent<VideoPlayer>();
+        video.Prepare();
+        while (!video.isPrepared)
         {
-            var progress = Mathf.Clamp01(operation.progress / .9f);
-
-            slider.value = progress;
             yield return null;
         }
+        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+        video.Play();
+
+        while (operation.progress < 0.9f || video.isPlaying)
+        {
+            slider.value = operation.progress / .9f;
+            yield return null;
+        }
+
+        operation.allowSceneActivation = true;
     }
 }
