@@ -9,16 +9,17 @@ public class LoadSceneOnClick : MonoBehaviour {
 
     public GameObject loadingBar;
     public Slider slider;
+    AsyncOperation sceneLoading;
 
     public void LoadLevel(int sceneIndex)
     {
+        sceneLoading = SceneManager.LoadSceneAsync(sceneIndex);
+        sceneLoading.allowSceneActivation = false;
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
-        var operation = SceneManager.LoadSceneAsync(sceneIndex);
-        operation.allowSceneActivation = false;
 
         GameObject.Find("MainMenuePanel").SetActive(false);
         loadingBar.SetActive(true);
@@ -31,12 +32,12 @@ public class LoadSceneOnClick : MonoBehaviour {
         GameObject.Find("Music").GetComponent<AudioSource>().Stop();
         video.Play();
 
-        while (operation.progress < 0.9f || video.isPlaying)
+        while (sceneLoading.progress < 0.9f || video.isPlaying)
         {
-            slider.value = operation.progress / .9f;
+            slider.value = sceneLoading.progress / .9f;
             yield return null;
         }
 
-        operation.allowSceneActivation = true;
+        sceneLoading.allowSceneActivation = true;
     }
 }
