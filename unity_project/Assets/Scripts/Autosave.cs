@@ -17,6 +17,10 @@ public class Savegame
 	public GameObject Player {get;set;}
 	public Scene Scene {get; set;}
 	public DateTime SaveDate {get;set;}
+	public List<GameObject> Logs {get;set;}
+	public List<GameObject> Shipparts {get;set;}
+
+	AnimationController animationController;
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -24,11 +28,13 @@ public class Autosave : MonoBehaviour
 {
 	private Savegame savegame = null;
 	private GameObject player;
+	AnimationController animationController;
 
 	// Use this for initialization
 	void Awake () 
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
+		animationController = (AnimationController)player.GetComponent("AnimationController");
 		CheckSaveFile();
 		if(savegame == null)
 		{
@@ -37,7 +43,9 @@ public class Autosave : MonoBehaviour
 				Id = Guid.NewGuid(),
 				Player = player,
 				SaveDate = DateTime.Now,
-				Scene = SceneManager.GetActiveScene()
+				Scene = SceneManager.GetActiveScene(),
+				Logs = animationController.Logs,
+				Shipparts = animationController.Shipparts
 			};
 		}
 	}
@@ -56,6 +64,9 @@ public class Autosave : MonoBehaviour
 	void Save() {
 		savegame.Scene = SceneManager.GetActiveScene();
 		savegame.SaveDate = DateTime.Now;
+		savegame.Logs = animationController.Logs;
+		savegame.Shipparts = animationController.Shipparts;
+
 		WriteSavefile();
 	}
 

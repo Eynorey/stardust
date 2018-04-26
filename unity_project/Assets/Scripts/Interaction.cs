@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour 
 {
-	private static List<GameObject> Logs = new List<GameObject>();
-	private static List<GameObject> Shipparts = new List<GameObject>();
-
 	GameObject player;
 	Camera thirdPersonCam;
-
+	DialogTrigger startInteraction;
+	AnimationController animationController;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
+		animationController = (AnimationController)player.GetComponent("AnimationController");
 		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
+
+		startInteraction = (DialogTrigger) player.GetComponent<DialogTrigger>();
 	}
 
 	/// <summary>
@@ -24,7 +26,16 @@ public class Interaction : MonoBehaviour
 	/// <param name="other">The other Collider involved in this collision.</param>
 	void OnTriggerStay(Collider other)
 	{
-		CheckInteraction(other);
+		CheckInteraction(other);		
+	}
+
+	/// <summary>
+	/// OnTriggerExit is called when the Collider other has stopped touching the trigger.
+	/// </summary>
+	/// <param name="other">The other Collider involved in this collision.</param>
+	void OnTriggerExit(Collider other)
+	{
+		startInteraction.enabled = false;
 	}
 
 	void CheckInteraction(Collider hit)
@@ -32,9 +43,11 @@ public class Interaction : MonoBehaviour
 		GameObject obj = hit.transform.gameObject;
 		if(obj.tag == "Log")
 		{
-			print("hit: " + hit.transform.gameObject.name);
+			startInteraction.TriggerDialog();
+
 			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
+				startInteraction.enabled = false;
 				HandleLog(obj);
 			}
 		}
@@ -61,7 +74,7 @@ public class Interaction : MonoBehaviour
 	// safe it into file
 	void HandleLog(GameObject interactedObj)
 	{
-		Logs.Add(interactedObj);
+		animationController.Logs.Add(interactedObj);
 		// open dialog
 		interactedObj.SetActive(false);
 	}
@@ -76,7 +89,7 @@ public class Interaction : MonoBehaviour
 	// collect ship part
 	void HandleShippart(GameObject interactedObj)
 	{
-		Shipparts.Add(interactedObj);
+		animationController.Shipparts.Add(interactedObj);
 		// collect
 		interactedObj.SetActive(false);
 	}
