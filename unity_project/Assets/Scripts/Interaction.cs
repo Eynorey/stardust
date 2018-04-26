@@ -10,6 +10,7 @@ public class Interaction : MonoBehaviour
 	Camera thirdPersonCam;
 	DialogTrigger startInteraction;
 	public GameObject interactionDialog;
+    public GameObject finalDialogue;
 	public Image image;
 	AnimationController animationController;
 	// Use this for initialization
@@ -48,7 +49,7 @@ public class Interaction : MonoBehaviour
 			interactionDialog.SetActive(true);
 			image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
 
-			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_1"))
 			{
 				interactionDialog.SetActive(false);
 
@@ -58,39 +59,46 @@ public class Interaction : MonoBehaviour
 
 		if(obj.tag == "NPC")
 		{
-			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+            interactionDialog.SetActive(true);
+            image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_1"))
 			{
-				HandleNPC(obj);
+                interactionDialog.SetActive(false);
+                HandleNPC(obj);
 			}
 		}
 
 		if(obj.tag == "Shippart")
 		{
-			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+            interactionDialog.SetActive(true);
+            image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_1"))
 			{
-				HandleShippart(obj);
+                interactionDialog.SetActive(false);
+                HandleShippart(obj);
 			}
 		}
 
 		if(obj.tag == "Spaceship")
 		{
-			startInteraction.TriggerDialog();
-
-			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+            interactionDialog.SetActive(true);
+            image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_1"))
 			{
-				startInteraction.enabled = false;
-				HandleSpaceship(obj);
+                interactionDialog.SetActive(false);
+                HandleSpaceship(obj);
 			}
 		}
 
 		if(obj.tag == "Fuel")
 		{
-			startInteraction.TriggerDialog();
+            interactionDialog.SetActive(true);
+            image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
 
-			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_1"))
 			{
-				startInteraction.enabled = false;
-				HandleFuel(obj);
+                interactionDialog.SetActive(false);
+                HandleFuel(obj);
 			}
 		}
 	}
@@ -110,9 +118,9 @@ public class Interaction : MonoBehaviour
 	// talk
 	void HandleNPC(GameObject interactedObj)
 	{
-		// trigger dialog with npc
-		
-	}
+        // trigger dialog with npc
+        interactedObj.GetComponent<DialogTrigger>().TriggerDialog();
+    }
 
 	// collect fuel
 	void HandleFuel(GameObject interactedObj)
@@ -132,14 +140,15 @@ public class Interaction : MonoBehaviour
 
 	void HandleSpaceship(GameObject obj)
 	{
-		// if all parts are found and enough fuel was found -> able to switch planet
-		if(animationController.Shipparts.Count == 5 && animationController.Fuel.Count >= 3)
-		{
 
-		}
-		else 
+        // if all parts are found and enough fuel was found -> able to switch planet
+        if (animationController.Shipparts.Count >= 4 && animationController.Fuel.Count >= 3)
 		{
-
-		}
-	}
+            finalDialogue.SetActive(true);
+        }
+        else 
+		{
+            obj.GetComponent<DialogTrigger>().TriggerDialog();
+        }
+    }
 }
