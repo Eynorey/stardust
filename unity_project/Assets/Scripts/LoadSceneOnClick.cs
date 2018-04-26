@@ -16,6 +16,7 @@ public class LoadSceneOnClick : MonoBehaviour {
     public void LoadLevel(int sceneIndex)
     {
         slider.value = 0;
+        GameObject.Find("MainMenuePanel").SetActive(false);
         loadingBar.SetActive(true);
         if (sceneIndex == 1)
         {
@@ -23,8 +24,6 @@ public class LoadSceneOnClick : MonoBehaviour {
             video = loadingBar.GetComponent<VideoPlayer>();
             init = true;
         }
-        else
-            loadingBar.GetComponent<Image>().enabled = true;
 
         sceneLoading = SceneManager.LoadSceneAsync(sceneIndex);
         sceneLoading.allowSceneActivation = false;
@@ -35,10 +34,10 @@ public class LoadSceneOnClick : MonoBehaviour {
     {
         if (init && playIntro)
         {
-            GameObject.Find("MainMenuePanel").SetActive(false);
             video.Prepare();
             while (!video.isPrepared)
             {
+                slider.value = sceneLoading.progress / .9f;
                 yield return null;
             }
             GameObject.Find("Music").GetComponent<AudioSource>().Stop();
@@ -53,6 +52,9 @@ public class LoadSceneOnClick : MonoBehaviour {
         }
 
         sceneLoading.allowSceneActivation = true;
-        loadingBar.GetComponent<Image>().enabled = true;
+        if (playIntro)
+        {
+            video.enabled = false;
+        }
     }
 }
