@@ -20,17 +20,23 @@ public class CameraController : MonoBehaviour
     {
         float playerX = PlayerToFollow.position.x;
         float playerY = PlayerToFollow.position.y;
+        float playerZ = PlayerToFollow.position.z;
 
         var velocity = Vector3.zero;
 
-        float newY;
+        float newY, newZ;
         if (scene == "final_planet")
-            newY = (playerY + 30 > 120 ? playerY + 30 : 120);
+        {
+            newY = (playerY + 20 > 100 ? playerY + 20 : 100);
+            newZ = (playerZ - 30);
+        }
         else
+        {
+            newZ = transform.position.z;
             newY = playerY + 7;
-        
+        }
 
-        var newPos = new Vector3(playerX, newY, transform.position.z);
+        var newPos = new Vector3(playerX, newY, newZ);
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, dampFactor);
     }
 }

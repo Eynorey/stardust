@@ -10,34 +10,49 @@ public class LoadSceneOnClick : MonoBehaviour {
     public GameObject loadingBar;
     public Slider slider;
     AsyncOperation sceneLoading;
+    bool playIntro, init;
+    VideoPlayer video;
 
     public void LoadLevel(int sceneIndex)
     {
+        slider.value = 0;
+        loadingBar.SetActive(true);
+        if (sceneIndex != 1)
+        {
+            playIntro = true;
+            video = loadingBar.GetComponent<VideoPlayer>();
+            init = true;
+        }
+        else
+            loadingBar.GetComponent<Image>().enabled = true;
+
         sceneLoading = SceneManager.LoadSceneAsync(sceneIndex);
         sceneLoading.allowSceneActivation = false;
-        StartCoroutine(LoadAsynchronously(sceneIndex));
+        StartCoroutine(LoadAsynchronously(sceneIndex));    
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
-
-        GameObject.Find("MainMenuePanel").SetActive(false);
-        loadingBar.SetActive(true);
-        VideoPlayer video = loadingBar.GetComponent<VideoPlayer>();
-        video.Prepare();
-        while (!video.isPrepared)
+        if (init && playIntro)
         {
-            yield return null;
+            GameObject.Find("MainMenuePanel").SetActive(false);
+            video.Prepare();
+            while (!video.isPrepared)
+            {
+                yield return null;
+            }
+            GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+            video.Play();
+            init = false;
         }
-        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
-        video.Play();
 
-        while (sceneLoading.progress < 0.9f || video.isPlaying)
+        while (sceneLoading.progress < 0.9f || (playIntro && video.isPlaying))
         {
             slider.value = sceneLoading.progress / .9f;
             yield return null;
         }
 
         sceneLoading.allowSceneActivation = true;
+        loadingBar.GetComponent<Image>().enabled = true;
     }
 }
