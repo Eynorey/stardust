@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/scene_1.unity
     guid: 193d0ba1a7d32cf459dd25ea6510ce3b
+  - enabled: 1
+    path: Assets/Scenes/final_planet.unity
+    guid: ab68c7f793ec9df4ab08a4f80fd891ec
