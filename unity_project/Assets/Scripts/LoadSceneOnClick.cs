@@ -17,7 +17,7 @@ public class LoadSceneOnClick : MonoBehaviour {
     {
         slider.value = 0;
         loadingBar.SetActive(true);
-        if (sceneIndex != 1)
+        if (sceneIndex == 1)
         {
             playIntro = true;
             video = loadingBar.GetComponent<VideoPlayer>();
