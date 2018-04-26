@@ -73,6 +73,7 @@ public class Autosave : MonoBehaviour
 	void WriteSavefile()
 	{
         // Stream the file with a File Stream. (Note that File.Create() 'Creates' or 'Overwrites' a file.)
+        Directory.CreateDirectory(@"Savegames");
         FileStream file = File.Create(@"Savegames\stardust_save.xml");
 
         //Serialize to xml
