@@ -17,25 +17,24 @@ public class LoadSceneOnClick : MonoBehaviour {
     {
         slider.value = 0;
         loadingBar.SetActive(true);
+        GameObject.Find("MainMenuePanel").SetActive(false);
+
         if (sceneIndex == 1)
         {
             playIntro = true;
             video = loadingBar.GetComponent<VideoPlayer>();
             init = true;
         }
-        else
-            loadingBar.GetComponent<Image>().enabled = true;
 
         sceneLoading = SceneManager.LoadSceneAsync(sceneIndex);
         sceneLoading.allowSceneActivation = false;
-        StartCoroutine(LoadAsynchronously(sceneIndex));    
+        StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
-    {
+    { 
         if (init && playIntro)
         {
-            GameObject.Find("MainMenuePanel").SetActive(false);
             video.Prepare();
             while (!video.isPrepared)
             {
@@ -53,6 +52,7 @@ public class LoadSceneOnClick : MonoBehaviour {
         }
 
         sceneLoading.allowSceneActivation = true;
-        loadingBar.GetComponent<Image>().enabled = true;
+        if (playIntro)
+            video.enabled = false;
     }
 }
