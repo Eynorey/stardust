@@ -19,8 +19,7 @@ public class Savegame
 	public DateTime SaveDate {get;set;}
 	public List<GameObject> Logs {get;set;}
 	public List<GameObject> Shipparts {get;set;}
-
-	AnimationController animationController;
+	public List<GameObject> Fuel {get;set;}
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -28,7 +27,7 @@ public class Autosave : MonoBehaviour
 {
 	private Savegame savegame = null;
 	private GameObject player;
-	AnimationController animationController;
+	private AnimationController animationController;
 
 	// Use this for initialization
 	void Awake () 
@@ -66,6 +65,7 @@ public class Autosave : MonoBehaviour
 		savegame.SaveDate = DateTime.Now;
 		savegame.Logs = animationController.Logs;
 		savegame.Shipparts = animationController.Shipparts;
+		savegame.Fuel = animationController.Fuel;
 
 		WriteSavefile();
 	}
@@ -102,6 +102,6 @@ public class Autosave : MonoBehaviour
 				savegame = (Savegame) serializer.Deserialize(reader);
 			}
 		} 
-		catch(Exception e) { print("new file");}
+		catch(Exception e) { }
 	}
 }
