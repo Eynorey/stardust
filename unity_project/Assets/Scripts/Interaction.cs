@@ -9,6 +9,8 @@ public class Interaction : MonoBehaviour
 	GameObject player;
 	Camera thirdPersonCam;
 	DialogTrigger startInteraction;
+	public GameObject interactionDialog;
+	public Image image;
 	AnimationController animationController;
 	// Use this for initialization
 	void Awake () {
@@ -16,7 +18,7 @@ public class Interaction : MonoBehaviour
 		animationController = (AnimationController)player.GetComponent("AnimationController");
 		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
 
-		startInteraction = (DialogTrigger) player.GetComponent<DialogTrigger>();
+		// startInteraction = (DialogTrigger) player.GetComponent<DialogTrigger>();
 	}
 
 	/// <summary>
@@ -35,7 +37,7 @@ public class Interaction : MonoBehaviour
 	/// <param name="other">The other Collider involved in this collision.</param>
 	void OnTriggerExit(Collider other)
 	{
-		startInteraction.enabled = false;
+		interactionDialog.SetActive(false);
 	}
 
 	void CheckInteraction(Collider hit)
@@ -43,11 +45,13 @@ public class Interaction : MonoBehaviour
 		GameObject obj = hit.transform.gameObject;
 		if(obj.tag == "Log")
 		{
-			startInteraction.TriggerDialog();
+			interactionDialog.SetActive(true);
+			image.rectTransform.anchoredPosition = new Vector3(obj.transform.position.x, obj.transform.position.y + 1, obj.transform.position.z);
 
 			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
-				startInteraction.enabled = false;
+				interactionDialog.SetActive(false);
+
 				HandleLog(obj);
 			}
 		}
@@ -64,7 +68,29 @@ public class Interaction : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
 			{
-				HandleNPC(obj);
+				HandleShippart(obj);
+			}
+		}
+
+		if(obj.tag == "Spaceship")
+		{
+			startInteraction.TriggerDialog();
+
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+			{
+				startInteraction.enabled = false;
+				HandleSpaceship(obj);
+			}
+		}
+
+		if(obj.tag == "Fuel")
+		{
+			startInteraction.TriggerDialog();
+
+			if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonUp("Button_0"))
+			{
+				startInteraction.enabled = false;
+				HandleFuel(obj);
 			}
 		}
 	}
@@ -77,6 +103,7 @@ public class Interaction : MonoBehaviour
 		animationController.Logs.Add(interactedObj);
 		// open dialog
 		interactedObj.SetActive(false);
+		interactedObj.GetComponent<DialogTrigger>().TriggerDialog();
 	}
 
 	// on interacting with a NPC
@@ -84,6 +111,15 @@ public class Interaction : MonoBehaviour
 	void HandleNPC(GameObject interactedObj)
 	{
 		// trigger dialog with npc
+		
+	}
+
+	// collect fuel
+	void HandleFuel(GameObject interactedObj)
+	{
+		animationController.Fuel.Add(interactedObj);
+		// collect
+		interactedObj.SetActive(false);
 	}
 
 	// collect ship part
@@ -92,5 +128,18 @@ public class Interaction : MonoBehaviour
 		animationController.Shipparts.Add(interactedObj);
 		// collect
 		interactedObj.SetActive(false);
+	}
+
+	void HandleSpaceship(GameObject obj)
+	{
+		// if all parts are found and enough fuel was found -> able to switch planet
+		if(animationController.Shipparts.Count == 5 && animationController.Fuel.Count >= 3)
+		{
+
+		}
+		else 
+		{
+
+		}
 	}
 }

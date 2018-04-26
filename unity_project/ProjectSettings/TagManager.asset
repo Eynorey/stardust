@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Log
   - NPC
+  - Spaceship
+  - Fuel
+  - Shippart
   layers:
   - Default
   - TransparentFX

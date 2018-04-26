@@ -8,6 +8,7 @@ public class DialogManager : MonoBehaviour {
 
     public Text dialog;
     public GameObject dialogWindow;
+    public Text dialogTitle;
     public GameObject startButton;
     public GameObject continueButton;
     public GameObject endButton;
@@ -21,9 +22,11 @@ public class DialogManager : MonoBehaviour {
 
     public void StartDialog(Dialog dialog)
     {
+        dialogWindow.SetActive(true);
         sentences.Clear();
         startButton.SetActive(false);
         continueButton.SetActive(true);
+        dialogTitle.text = dialog.name;
         foreach(string sentence in dialog.sentences)
         {
             sentences.Enqueue(sentence);
