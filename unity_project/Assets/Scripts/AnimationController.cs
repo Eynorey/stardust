@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class AnimationController : MonoBehaviour {
-	// How fast your object moves
-    //private float moveSpeed;
+	public List<GameObject> Logs = new List<GameObject>();
+	public List<GameObject> Shipparts = new List<GameObject>();
 	// How fast your object will rotate in the direction of movement
     private float rotationSpeed;
     // jump vector
     private Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
     private float jumpForce = 2.0f;
 
-    private bool isWalking = false;
+    public bool isWalking = false;
     //private bool isJumping = false;
 
     private GameObject camswitchWall;
