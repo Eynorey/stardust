@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class AnimationController : MonoBehaviour {
 	public List<GameObject> Logs = new List<GameObject>();
 	public List<GameObject> Shipparts = new List<GameObject>();
+    public List<GameObject> Fuel = new List<GameObject>();
 	// How fast your object will rotate in the direction of movement
     private float rotationSpeed;
     // jump vector
