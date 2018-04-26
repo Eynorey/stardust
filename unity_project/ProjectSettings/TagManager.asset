@@ -9,6 +9,7 @@ TagManager:
   - Spaceship
   - Fuel
   - Shippart
+  - RepairedSpecship
   layers:
   - Default
   - TransparentFX

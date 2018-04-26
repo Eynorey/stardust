@@ -12,13 +12,19 @@ public class Interaction : MonoBehaviour
 	public GameObject interactionDialog;
     public GameObject finalDialogue;
 	public Image image;
+
+	GameObject spaceship;
+	GameObject brokenSpaceship;
 	AnimationController animationController;
 	// Use this for initialization
 	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		animationController = (AnimationController)player.GetComponent("AnimationController");
 		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
-
+		
+		spaceship = GameObject.Find("Spaceship");
+		spaceship.SetActive(false);
+		brokenSpaceship = GameObject.Find("brokenSpaceship");
 		// startInteraction = (DialogTrigger) player.GetComponent<DialogTrigger>();
 	}
 
@@ -140,11 +146,15 @@ public class Interaction : MonoBehaviour
 
 	void HandleSpaceship(GameObject obj)
 	{
+		animationController.Shipparts.AddRange(new List<GameObject>(){new GameObject(),new GameObject(),new GameObject(),new GameObject(),new GameObject()});
+		animationController.Fuel.AddRange(new List<GameObject>(){new GameObject(),new GameObject(),new GameObject()});
 
         // if all parts are found and enough fuel was found -> able to switch planet
-        if (animationController.Shipparts.Count >= 4 && animationController.Fuel.Count >= 3)
+        if (animationController.Shipparts.Count == 5 && animationController.Fuel.Count >= 3)
 		{
-            finalDialogue.SetActive(true);
+			brokenSpaceship.SetActive(false);
+			spaceship.SetActive(true);
+			finalDialogue.SetActive(true);
         }
         else 
 		{
