@@ -146,8 +146,8 @@ public class Interaction : MonoBehaviour
 
 	void HandleSpaceship(GameObject obj)
     {
-        animationController.Shipparts.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject(), new GameObject(), new GameObject() });
-        animationController.Fuel.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject() });
+        //animationController.Shipparts.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject(), new GameObject(), new GameObject() });
+        //animationController.Fuel.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject() });
 
         // if all parts are found and enough fuel was found -> able to switch planet
         if (animationController.Shipparts.Count >= 5 && animationController.Fuel.Count >= 3)
