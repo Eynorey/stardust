@@ -9,10 +9,8 @@ public class DialogManager : MonoBehaviour {
     public Text dialog;
     public GameObject dialogWindow;
     public Text dialogTitle;
-    public GameObject startButton;
     public GameObject continueButton;
     public GameObject endButton;
-    public GameObject skipButton;
     private Queue<string> sentences;
 
 	// Use this for initialization
@@ -24,7 +22,6 @@ public class DialogManager : MonoBehaviour {
     {
         dialogWindow.SetActive(true);
         sentences.Clear();
-        startButton.SetActive(false);
         continueButton.SetActive(true);
         dialogTitle.text = dialog.name;
         foreach(string sentence in dialog.sentences)
@@ -39,7 +36,6 @@ public class DialogManager : MonoBehaviour {
     {
         if(sentences.Count == 1)
         {
-            skipButton.SetActive(false);
             continueButton.SetActive(false);
             endButton.SetActive(true);
         }
