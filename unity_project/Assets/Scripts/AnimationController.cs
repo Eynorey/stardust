@@ -26,6 +26,8 @@ public class AnimationController : MonoBehaviour {
     private CharacterController cc;
     private string scene;
 
+    public GameObject gameMenue;
+
     // Use this for initialization
     void Start () 
     {
@@ -75,6 +77,10 @@ public class AnimationController : MonoBehaviour {
         if((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Button_0")) && cc.isGrounded)
         {
             transform.position += (jump * jumpForce);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameMenue.SetActive(true);
         }
 
         animator.SetBool("IsWalking", isWalking);

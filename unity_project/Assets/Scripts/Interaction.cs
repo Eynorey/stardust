@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class Interaction : MonoBehaviour 
 {
 	GameObject player;
-	Camera thirdPersonCam;
-	DialogTrigger startInteraction;
+	//Camera thirdPersonCam;
+	//DialogTrigger startInteraction;
 	public GameObject interactionDialog;
     public GameObject finalDialogue;
 	public Image image;
@@ -20,7 +20,7 @@ public class Interaction : MonoBehaviour
 	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		animationController = (AnimationController)player.GetComponent("AnimationController");
-		thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
+		//thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
 		
 		spaceship = GameObject.Find("Spaceship");
 		spaceship.SetActive(false);
