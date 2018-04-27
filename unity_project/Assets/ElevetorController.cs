@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevetorController : MonoBehaviour {
 
-    int maxY = 119, minY = 80, maxX = 198, minX = 188, stay = 0;
+    int maxY = 119, minY = 80;
     bool moveDown = true;
     GameObject elevator;
+    bool waiting;
 
 	// Use this for initialization
 	void Start () {
@@ -15,41 +15,35 @@ public class ElevetorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (stay <= 120)
-        {
-            stay++;
+        if (waiting)
             return;
+
+        var velocity = Vector3.zero;
+
+        Vector3 newPos;
+        if (elevator.transform.position.y <= minY + .2f)
+        {
+            moveDown = false;
+            StartCoroutine(Stay());
+        }
+        if (elevator.transform.position.y >= maxY - .2f)
+        {
+            moveDown = true;
+            StartCoroutine(Stay());
         }
 
-        if (moveDown && elevator.transform.position.y > minY)
-        {
-            float x = 0f;
-            if (elevator.transform.position.x < maxX)
-                x = -.05f;
-                
-            elevator.transform.position -= new Vector3(x, .25f, 0.0f);
-            return;
-        }
+        if (moveDown)
+            newPos = new Vector3(198f, 80, elevator.transform.position.z);
         else
-        {
-            if (moveDown)
-                stay = 0;
-            moveDown = false;
-        }
-            
-        if (elevator.transform.position.y < maxY)
-        {
-            float x = 0f;
-            if (elevator.transform.position.x > minX)
-                x = -.05f;
-            elevator.transform.position += new Vector3(x, .25f, 0.0f);
-        }
-            
-        else
-        {
-            if (!moveDown)
-                stay = 0;
-            moveDown = true;
-        }    
+            newPos = new Vector3(188f, 119, elevator.transform.position.z);
+
+        elevator.transform.position = Vector3.SmoothDamp(elevator.transform.position, newPos, ref velocity, .1f, 30f); 
+    }
+
+    IEnumerator Stay()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(3);
+        waiting = false;
     }
 }
