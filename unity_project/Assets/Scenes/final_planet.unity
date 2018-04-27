@@ -5591,7 +5591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 10/10
     sentences:
     - Dies ist mein letzter Eintrag.
     - "Wir haben alles zur L\xF6schung der Erinnerungen der letzten Jahre vorbereitet.
@@ -5969,7 +5969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 4/10
     sentences:
     - ' Was haben wir getan? Wozu hat uns Haussmann gebracht? Was ist hier los?'
     - "Die Locust waren friedliche Wesen, die uns empfangen haben wie die G\xF6tter,
@@ -6666,7 +6666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 9/10
     sentences:
     - Ich kann mit diesem Gewissen nicht mehr leben.
     - "Mein Eid hier ist erf\xFCllt und ich habe mich entschlossen, meine Erinnerungen
@@ -13210,7 +13210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 3/10
     sentences:
     - "Ich f\xFChle mich seltsam. Und ich bin nicht der Einzige, dem es so geht."
     - "Ich sollte den ehemaligen Imperator verehren, doch mehr und mehr beginne ich
@@ -17444,7 +17444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 6/10
     sentences:
     - Ein paar haben sich meiner Sache angeschlossen. Wir haben herausgefunden, dass
       Haussmann uns mit einer Art Indoktrinationsvirus infiziert hat.
@@ -29270,7 +29270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 7/10
     sentences:
     - Die zweite Welle der Kolonisten wird in wenigen Monaten eintreffen. Doch sie
       werden keine Chance gegen die Abwehrraketen auf Yellowstone haben...
@@ -37837,7 +37837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 8/10
     sentences:
     - "Unsere Gruppe hat eine weitere Grausamkeit \xFCber Sky Haussman herausgefunden.
       Wir wissen nun, wie er es schaffen konnte, einen so gro\xDFen Vorsprung zu gewinnen."
@@ -38058,6 +38058,10 @@ Prefab:
     - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0.0000
       objectReference: {fileID: 0}
     - target: {fileID: 19818194, guid: 18faec2a14493684d905501076799765, type: 2}
       propertyPath: startDelay.minScalar
@@ -44500,7 +44504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 2/10
     sentences:
     - "Erdzeit 30. April 2122: Heute ist ein dunkler Tag f\xFCr die Unendlichen."
     - "Etwas Unm\xF6gliches ist passiert. Unser Imperator Schuyler \"Sky\" Haussmann
@@ -44896,7 +44900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 1/10
     sentences:
     - "Vier Monate nach Ankunft der \"Pioneer\": Unsere Kolonien wachsen und gedeihen
       pr\xE4chtig! Erste erfolgreiche Tests der Abwehrraketen auf Yellowstone demonstrieren
@@ -45368,7 +45372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog:
-    name: Log
+    name: Log 5/10
     sentences:
     - "Irgendwas stimmt hier gewaltig nicht, wir alle realisieren pl\xF6tzlich, was
       wir getan haben. Doch warum jetzt? Warum so sp\xE4t? Warum erst nach Haussmanns
