@@ -22,9 +22,9 @@ public class Interaction : MonoBehaviour
 		animationController = (AnimationController)player.GetComponent("AnimationController");
 		//thirdPersonCam = GameObject.Find("thirdPersonCam").GetComponent<Camera>();
 		
-		spaceship = GameObject.Find("Spaceship");
+		spaceship = GameObject.Find("SpaceshipRepaired");
 		spaceship.SetActive(false);
-		brokenSpaceship = GameObject.Find("brokenSpaceship");
+		brokenSpaceship = GameObject.Find("SpaceshipBroken");
 		// startInteraction = (DialogTrigger) player.GetComponent<DialogTrigger>();
 	}
 
@@ -145,12 +145,12 @@ public class Interaction : MonoBehaviour
 	}
 
 	void HandleSpaceship(GameObject obj)
-	{
-		//animationController.Shipparts.AddRange(new List<GameObject>(){new GameObject(),new GameObject(),new GameObject(),new GameObject(),new GameObject()});
-		//animationController.Fuel.AddRange(new List<GameObject>(){new GameObject(),new GameObject(),new GameObject()});
+    {
+        animationController.Shipparts.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject(), new GameObject(), new GameObject() });
+        animationController.Fuel.AddRange(new List<GameObject>() { new GameObject(), new GameObject(), new GameObject() });
 
         // if all parts are found and enough fuel was found -> able to switch planet
-        if (animationController.Shipparts.Count == 5 && animationController.Fuel.Count >= 3)
+        if (animationController.Shipparts.Count >= 5 && animationController.Fuel.Count >= 3)
 		{
 			brokenSpaceship.SetActive(false);
 			spaceship.SetActive(true);
