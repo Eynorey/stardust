@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
         scene = SceneManager.GetActiveScene().name;
     }
 
-    float dampFactor = 0.2f;
+    float dampFactor = 0.15f;
 
     void LateUpdate()
     {
@@ -29,6 +29,18 @@ public class CameraController : MonoBehaviour
         {
             newY = (playerY + 20 > 100 ? playerY + 20 : 100);
             newZ = (playerZ - 30);
+            var oldRot = transform.rotation;
+            if ((playerX > 60 && playerX < 175) || (playerX > 375 && playerX < 615))
+            {
+                transform.rotation = Quaternion.RotateTowards(oldRot, Quaternion.Euler(8f, oldRot.y, oldRot.z), 10 * Time.deltaTime);
+                newY -= 15;
+                newZ += 15;
+            }
+            else
+            {
+                transform.rotation = Quaternion.RotateTowards(oldRot, Quaternion.Euler(34f, oldRot.y, oldRot.z), 10 * Time.deltaTime);
+            }
+            
         }
         else
         {
